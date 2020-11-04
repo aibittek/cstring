@@ -26,7 +26,7 @@ typedef struct cstring
     char *(*dump)(const struct cstring *cs, size_t *len);
 } cstring_t;
 
-cstring_t *cstring_create(void);
+cstring_t *cstring_create(size_t len);
 
 void cstring_destory(cstring_t *cs);
 
@@ -60,9 +60,14 @@ void cstring_init(cstring_t *cs);
 
 void cstring_uninit(cstring_t *cs);
 
-#define cstring_new(cstr)    \
-    cstring_t *cstr = NULL;  \
-    cstr = cstring_create(); \
+#define cstring_new(cstr)      \
+    cstring_t *cstr = NULL;    \
+    cstr = cstring_create(32); \
+    cstring_init(cstr);
+
+#define cstring_new_len(cstr, len)  \
+    cstring_t *cstr = NULL;     \
+    cstr = cstring_create(len); \
     cstring_init(cstr);
 
 #define cstring_del(cstr)  \

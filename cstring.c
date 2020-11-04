@@ -5,8 +5,6 @@
 #include <string.h>
 #include "cstring.h"
 
-#define CSTRING_MIN_SIZE 32
-
 void cstring_init(cstring_t *cs)
 {
     if (!cs) return ;
@@ -49,14 +47,14 @@ void cstring_uninit(cstring_t *cs)
     cs->dump = NULL;
 }
 
-cstring_t *cstring_create(void)
+cstring_t *cstring_create(size_t len)
 {
     cstring_t *cs;
 
     cs = calloc(1, sizeof(*cs));
-    cs->str = malloc(CSTRING_MIN_SIZE);
+    cs->str = malloc(len);
     *cs->str = '\0';
-    cs->alloced = CSTRING_MIN_SIZE;
+    cs->alloced = len;
     cs->len = 0;
 
     return cs;
